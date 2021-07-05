@@ -96,7 +96,7 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
 
-  # simple smtp server
-  mail:
-    image: bytemark/smtp
-    restart: always
+  # # simple smtp server
+  # mail:
+  #   image: bytemark/smtp
+  #   restart: always
