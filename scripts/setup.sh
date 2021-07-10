@@ -8,16 +8,16 @@ cd ~
 curl -fsSL https://get.docker.com -o get-docker.sh | sh
 
 # download docker compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 # apply perms
-sudo chmod +x /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
 
 # syslink
-sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
 # install git
-dnf install git
+dnf install git -y
 
 # download backend config
 git clone https://github.com/AtheranTimes/backend backend
