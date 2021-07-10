@@ -1,2 +1,11 @@
+# go to home dir
+cd ~
+
+# go to backend config
+cd backend
+
+# update repo with newest changes
 git pull
-sudo docker-compose -f stack.yml -f ./traefik.yml ip -d
+
+# run stack
+sudo docker-compose -f stack.yml -f ./traefik /traefik.yml up -d
