@@ -16,6 +16,8 @@ sudo chmod +x /usr/local/bin/docker-compose
 # syslink
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
+# dnf install git
+
 # download backend config
 git clone https://github.com/AtheranTimes/backend backend
 
