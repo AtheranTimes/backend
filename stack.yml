@@ -41,7 +41,6 @@ services:
     # set containers required by ghost
     depends_on:
       - db
-      - reverse-proxy
 
   # db for cms
   db:
