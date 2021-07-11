@@ -49,7 +49,7 @@ services:
     restart: always
     volumes:
       - mariadb-data:/var/lib/mysql
-    environment:
+    #environment:
       # MYSQL_ROOT_PASSWORD: example
     env_file:
       - config.env
