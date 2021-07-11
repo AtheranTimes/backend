@@ -5,7 +5,7 @@ cd ~
 cd backend
 
 # update repo with newest changes
-git pull
+git pull --rebase
 
 # run stack
 docker-compose -f stack.yml -f ./traefik/traefik.yml up -d
@@ -17,7 +17,7 @@ cd ~
 cd plausible
 
 # update repo with newest changes
-git pull
+git pull --rebase
 
 # run stack
 docker-compose -f docker-compose.yml -f reverse-proxy/traefik/docker-compose.traefik.yml up -d
