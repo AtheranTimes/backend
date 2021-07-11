@@ -23,7 +23,7 @@ cd ~
 cd plausible
 
 # update repo with newest changes
-git pull --rebase
+git pull
 
 # run stack
 docker-compose -f docker-compose.yml -f reverse-proxy/traefik/docker-compose.traefik.yml up -d
