@@ -1,3 +1,6 @@
+# if error exit
+set -e
+
 # uodate packages
 dnf update
 

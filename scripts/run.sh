@@ -1,3 +1,6 @@
+# if error exit
+set -e
+
 # go to home dir
 cd ~
 
