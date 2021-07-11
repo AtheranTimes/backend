@@ -30,15 +30,15 @@ services:
       - config.env
     labels:
       # enables auto updates
-      - "com.centurylinklabs.watchtower.enable=true"
+      com.centurylinklabs.watchtower.enable: true
       # enable traefik
-      - "traefik.enable=true"
+      traefik.enable: true
       # traefik set host
-      - "traefik.http.routers.ghost.rule=Host(`ghost.atherantimes.com`)"
-      - "traefik.http.services.ghost.loadbalancer.server.port=2368"
+      traefik.http.routers.ghost.rule: "Host(`ghost.atherantimes.com`)"
+      traefik.http.services.ghost.loadbalancer.server.port: "2368"
       # enables tls
-      - traefik.http.routers.whoami.tls=true
-      - traefik.http.routers.whoami.tls.certresolver=letsEncrypt
+      traefik.http.routers.whoami.tls: true
+      traefik.http.routers.whoami.tls.certresolver: letsEncrypt
     # set containers required by ghost
     depends_on:
       - db
@@ -56,7 +56,7 @@ services:
       - config.env
     labels:
       # enables auto updates
-      - "com.centurylinklabs.watchtower.enable=true"
+      com.centurylinklabs.watchtower.enable: true
 
   # auto updates containers
   watchtower:
@@ -76,7 +76,7 @@ services:
       # update at 3 am
       WATCHTOWER_SCHEDULE: "0 0 3 * * *"
     labels:
-      - "com.centurylinklabs.watchtower.enable=true"
+      com.centurylinklabs.watchtower.enable: true
 
   # # simple smtp server
   # mail:
