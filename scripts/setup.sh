@@ -29,3 +29,10 @@ git clone https://github.com/AtheranTimes/backend backend
 
 # download plausible config
 git clone https://github.com/AtheranTimes/plausible-hosting plausible
+
+# start docker
+sudo systemctl start docker
+
+# automatically start Docker and Containerd on boot
+systemd enable docker.service
+systemd enable containerd.service
