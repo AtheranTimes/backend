@@ -8,7 +8,7 @@ cd backend
 git pull
 
 # run stack
-docker-compose -f stack.yml -f ./traefik /traefik.yml up -d
+docker-compose -f stack.yml -f ./traefik/traefik.yml up -d
 
 # go to home dir
 cd ~
