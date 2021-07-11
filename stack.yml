@@ -31,14 +31,31 @@ services:
     labels:
       # enables auto updates
       com.centurylinklabs.watchtower.enable: true
+
       # enable traefik
       traefik.enable: true
+
+      # redirect to https
+      traefik.http.middleware.httpsredirect.redirectscheme.scheme: https
+      # put middleware on ghost
+      traefik.http.routers.ghost.middleware: httpsredirect
+
       # traefik set host
       traefik.http.routers.ghost.rule: "Host(`ghost.atherantimes.com`)"
+      # traefik set port
       traefik.http.services.ghost.loadbalancer.server.port: "2368"
-      # enables tls
-      traefik.http.routers.whoami.tls: true
-      traefik.http.routers.whoami.tls.certresolver: letsEncrypt
+      # web entrypoint
+      traefik.http.routers.ghost.entrypoints: web
+
+      # ghost secure
+      traefik.http.routers.ghost-secure.rule: "Host(`ghost.atherantimes.com`)"
+      traefik.http.routers.ghost-secure.entrypoints: websecure
+
+      # set cert resolver to challange defined in traefik config
+      traefik.http.routers.ghost-secure.tls.certresolver: myhttpchallenge
+      # use tls
+      traefik.http.routers.ghost.tls: true
+
     # set containers required by ghost
     depends_on:
       - db
