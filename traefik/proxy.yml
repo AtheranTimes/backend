@@ -8,27 +8,25 @@ services:
     restart: always
     # Enables the web UI and tells Traefik to listen to docker
     command:
-      - --log.level=DEBUG
-      - --api.insecure=true
-      - --api.dashboard=true
-      - --providers.docker
-      # only allow traefik to proxy specific services
-      - --providers.docker.exposedbydefault=false
-      - --entrypoints.web.address=:80
-      - --entrypoints.websecure.address=:443
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
 
       # https stuff
 
       # set to http challange
-      - --certificatesresolvers.myhttpchallenge.acme.httpchallenge=true
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
       # make web entry point for challenge
-      - --certificatesresolvers.myhttpchallenge.acme.httpchallenge.entrypoint=web
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
       # acme server for testing
-      - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"\
       # email
-      - --certificatesresolvers.myhttpchallenge.acme.email=acme@atherantimes.com
+      - "--certificatesresolvers.myresolver.acme.email=acme@atherantimes.com"
       # path to config file
-      - --certificatesresolvers.myhttpchallenge.acme.storage=/letsencrypt/acme.json
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
       # The HTTP port
       - "80:80"
