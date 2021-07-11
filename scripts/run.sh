@@ -20,4 +20,4 @@ cd plausible
 git pull
 
 # run stack
-docker-compose -f docker-compose.yml -f reverse-proxy/traefik/docker-compose.traefik.yml up -d
+sudo docker-compose -f docker-compose.yml -f reverse-proxy/traefik/docker-compose.traefik.yml up -d
