@@ -34,5 +34,5 @@ git clone https://github.com/AtheranTimes/plausible-hosting plausible
 sudo systemctl start docker
 
 # automatically start Docker and Containerd on boot
-systemd enable docker.service
-systemd enable containerd.service
+systemctl enable docker.service
+systemctl enable containerd.service
