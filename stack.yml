@@ -32,7 +32,7 @@ services:
       # enables auto updates
       - "com.centurylinklabs.watchtower.enable=true"
       # traefik set host
-      - "traefik.http.routers.ghost.rule=Host(`cms.atherantimes.com`)"
+      - "traefik.http.routers.ghost.rule=Host(`ghost.atherantimes.com`)"
       - "traefik.http.services.ghost.loadbalancer.server.port=2368"
       # enables tls
       - traefik.http.routers.whoami.tls=true
