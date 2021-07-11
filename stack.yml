@@ -35,26 +35,30 @@ services:
       # enable traefik
       traefik.enable: "true"
 
-      # redirect to https
-      traefik.http.middleware.httpsredirect.redirectscheme.scheme: "https"
-      # put middleware on ghost
-      traefik.http.routers.ghost.middleware: "httpsredirect"
+      traefik.http.routers.whoami.rule: "Host(`ghost.atherantimes.com`)"
+      traefik.http.routers.whoami.entrypoints: "websecure"
+      traefik.http.routers.whoami.tls.certresolver: "myhttpchallenge"
 
-      # traefik set host
-      traefik.http.routers.ghost.rule: "Host(`ghost.atherantimes.com`)"
-      # traefik set port
-      traefik.http.services.ghost.loadbalancer.server.port: "2368"
-      # web entrypoint
-      traefik.http.routers.ghost.entrypoints: web
+      # # redirect to https
+      # traefik.http.middleware.httpsredirect.redirectscheme.scheme: "https"
+      # # put middleware on ghost
+      # traefik.http.routers.ghost.middleware: "httpsredirect"
 
-      # ghost secure
-      traefik.http.routers.ghost-secure.rule: "Host(`ghost.atherantimes.com`)"
-      traefik.http.routers.ghost-secure.entrypoints: "websecure"
+      # # traefik set host
+      # traefik.http.routers.ghost.rule: "Host(`ghost.atherantimes.com`)"
+      # # traefik set port
+      # traefik.http.services.ghost.loadbalancer.server.port: "2368"
+      # # web entrypoint
+      # traefik.http.routers.ghost.entrypoints: web
 
-      # set cert resolver to challange defined in traefik config
-      traefik.http.routers.ghost-secure.tls.certresolver: "myhttpchallenge"
-      # use tls
-      traefik.http.routers.ghost.tls: "true"
+      # # ghost secure
+      # traefik.http.routers.ghost-secure.rule: "Host(`ghost.atherantimes.com`)"
+      # traefik.http.routers.ghost-secure.entrypoints: "websecure"
+
+      # # set cert resolver to challange defined in traefik config
+      # traefik.http.routers.ghost-secure.tls.certresolver: "myhttpchallenge"
+      # # use tls
+      # traefik.http.routers.ghost.tls: "true"
 
     # set containers required by ghost
     depends_on:
