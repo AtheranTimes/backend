@@ -11,6 +11,6 @@ Read the [setup guide](https://github.com/AtheranTimes/backend/blob/main/README.
 After completing the setup, simply run the following commands to start everything.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AtheranTimes/backend/main/scripts/run.sh -o run.sh
+curl https://raw.githubusercontent.com/AtheranTimes/backend/main/scripts/run.sh -o run.sh
 sudo sh run.sh
 ```

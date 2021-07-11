@@ -8,6 +8,6 @@ The OS of the backend should be a RHEL distro. The recommended OS for this is [R
 ## Setup Script
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AtheranTimes/backend/main/scripts/setup.sh -o setup.sh
+curl https://raw.githubusercontent.com/AtheranTimes/backend/main/scripts/setup.sh -o setup.sh
 sudo sh setup.sh
 ```
