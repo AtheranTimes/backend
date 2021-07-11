@@ -31,6 +31,8 @@ services:
     labels:
       # enables auto updates
       - "com.centurylinklabs.watchtower.enable=true"
+      # enable traefik
+      - "traefik.enable=true"
       # traefik set host
       - "traefik.http.routers.ghost.rule=Host(`ghost.atherantimes.com`)"
       - "traefik.http.services.ghost.loadbalancer.server.port=2368"
