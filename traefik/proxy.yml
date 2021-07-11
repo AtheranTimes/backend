@@ -8,6 +8,7 @@ services:
     restart: always
     # Enables the web UI and tells Traefik to listen to docker
     command:
+      - --log.level=DEBUG
       - --api.insecure=true
       - --api.dashboard=true
       - --providers.docker
