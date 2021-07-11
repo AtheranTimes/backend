@@ -4,9 +4,13 @@ dnf update
 # go to home dir
 cd ~
 
-# install docker
+# download docker
 curl -fsSL https://get.docker.com -o get-docker.sh
+# install docker
 sh get-docker.sh
+
+# allow non-root users to use docker
+#dockerd-rootless-setuptool.sh install
 
 # download docker compose
 curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
