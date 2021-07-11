@@ -1,6 +1,9 @@
 # if error exit
 set -e
 
+# display each cmd run
+set -x
+
 # go to home dir
 cd ~
 
