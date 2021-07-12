@@ -4,7 +4,7 @@ set -e
 # display each cmd run
 set -x
 
-# uodate packages
+# update packages
 dnf update
 
 # go to home dir
@@ -25,7 +25,7 @@ curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compo
 chmod +x /usr/local/bin/docker-compose
 
 # syslink
-ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose || true
 
 # install git
 dnf install git -y
