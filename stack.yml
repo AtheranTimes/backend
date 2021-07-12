@@ -4,6 +4,12 @@ volumes:
   mariadb-data:
   ghost-data:
 
+networks:
+  frontend:
+    external: true
+    name: frontend
+  backend:
+
 services:
   # cms
   ghost:
@@ -28,6 +34,9 @@ services:
       #NODE_ENV: development
     env_file:
       - config.env
+    networks:
+      - frontend
+      - backend
     labels:
       # enables auto updates
       com.centurylinklabs.watchtower.enable: true
@@ -55,6 +64,8 @@ services:
     #   MYSQL_ROOT_PASSWORD: example
     env_file:
       - config.env
+    networks:
+      - backend
     labels:
       # enables auto updates
       com.centurylinklabs.watchtower.enable: true

@@ -42,3 +42,6 @@ sudo systemctl start docker
 # automatically start Docker and Containerd on boot
 systemctl enable docker.service
 systemctl enable containerd.service
+
+# create frotnend network
+docker network create frontend
