@@ -14,7 +14,7 @@ cd backend
 git pull --rebase
 
 # run stack
-docker-compose -f stack.yml -f traefik/proxy.yml -f plausible/plausible.yml portainer/portainer.yml up -d
+docker-compose -f stack.yml -f traefik/proxy.yml -f plausible/plausible.yml -f portainer/portainer.yml up -d
 
 # go to home dir
 # cd ~
