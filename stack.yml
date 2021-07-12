@@ -9,6 +9,8 @@ networks:
     external: true
     name: frontend
   backend:
+    external: true
+    name: backend
 
 services:
   # cms

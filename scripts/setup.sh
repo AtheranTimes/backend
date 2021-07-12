@@ -34,7 +34,7 @@ dnf install git -y
 git clone https://github.com/AtheranTimes/backend backend || true
 
 # download plausible config
-git clone https://github.com/AtheranTimes/plausible-hosting plausible || true
+# git clone https://github.com/AtheranTimes/plausible-hosting plausible || true
 
 # start docker
 sudo systemctl start docker
@@ -45,3 +45,6 @@ systemctl enable containerd.service
 
 # create frotnend network
 docker network create frontend || true
+
+# create backend network
+docker network create backend || true

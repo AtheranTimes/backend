@@ -17,13 +17,13 @@ git pull --rebase
 docker-compose -f stack.yml -f traefik/proxy.yml up -d
 
 # go to home dir
-cd ~
+# cd ~
 
 # go to plausible
-cd plausible
+# cd plausible
 
 # update repo with newest changes
-git pull
+# git pull
 
 # run stack
-docker-compose -f docker-compose.yml -f reverse-proxy/traefik/docker-compose.traefik.yml up -d
+# docker-compose -f docker-compose.yml -f reverse-proxy/traefik/docker-compose.traefik.yml up -d
