@@ -31,10 +31,10 @@ ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose || true
 dnf install git -y
 
 # download backend config
-git clone https://github.com/AtheranTimes/backend backend
+git clone https://github.com/AtheranTimes/backend backend || true
 
 # download plausible config
-git clone https://github.com/AtheranTimes/plausible-hosting plausible
+git clone https://github.com/AtheranTimes/plausible-hosting plausible || true
 
 # start docker
 sudo systemctl start docker
@@ -44,4 +44,4 @@ systemctl enable docker.service
 systemctl enable containerd.service
 
 # create frotnend network
-docker network create frontend
+docker network create frontend || true
