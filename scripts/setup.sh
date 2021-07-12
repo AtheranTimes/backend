@@ -1,5 +1,5 @@
 # if error exit
-set -e
+# set -e
 
 # display each cmd run
 set -x
