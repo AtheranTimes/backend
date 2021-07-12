@@ -49,7 +49,7 @@ services:
       traefik.http.routers.ghost.rule: "Host(`ghost.atherantimes.com`)"
       traefik.http.services.ghost.loadbalancer.server.port: "2368"
       traefik.http.routers.ghost.entrypoints: "websecure"
-      traefik.http.routers.ghost.tls.certresolver: "myhttpchallenge"
+      traefik.http.routers.ghost.tls.certresolver: "myresolver"
 
     # set containers required by ghost
     depends_on:
