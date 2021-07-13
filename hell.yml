@@ -169,18 +169,18 @@ services:
   #   volumes:
   #     - geoip:/usr/share/GeoIP
 
-  # plausible_db:
-  #   image: postgres:12
-  #   restart: always
-  #   volumes:
-  #     - db-data:/var/lib/postgresql/data
-  #   environment:
-  #     - POSTGRES_PASSWORD=postgres
-  #     - POSTGRES_DB=plausible_db
-  #   # env_file:
-  #   #   - plausible.env
-  #   # networks:
-  #   #   - backend
+  plausible_db:
+    image: postgres:12
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=plausible_db
+    # env_file:
+    #   - plausible.env
+    # networks:
+    #   - backend
 
   plausible_events_db:
     image: yandex/clickhouse-server:latest
@@ -202,7 +202,7 @@ services:
     depends_on:
       - mail
       # - geoip
-      # - plausible_db
+      - plausible_db
       - plausible_events_db
     env_file:
       - plausible.env
