@@ -171,13 +171,15 @@ services:
 
   plausible_db:
     image: postgres:12
+    restart: always
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=postgres
+    env_file:
+      - plausible.env
     # networks:
     #   - backend
-    restart: always
 
   plausible_events_db:
     image: yandex/clickhouse-server:latest
