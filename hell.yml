@@ -176,7 +176,7 @@ services:
       - db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=plausible_db
+      - POSTGRES_DB=plausible
     # env_file:
     #   - plausible.env
     # networks:
@@ -212,7 +212,7 @@ services:
     environment:
       #   GEOLITE2_COUNTRY_DB: "/geoip/GeoLite2-Country.mmdb"
       # DATABASE_URL: "postgres://plausible_db:5432/plausible_dev"
-      CLICKHOUSE_DATABASE_URL: "http://plausible_events_db:8123/plausible_dev"
+      CLICKHOUSE_DATABASE_URL: "http://plausible_events_db:8123/plausible_events_db"
     # volumes:
     #   - geoip:/geoip:ro
     restart: always
