@@ -174,8 +174,8 @@ services:
     restart: always
     volumes:
       - db-data:/var/lib/postgresql/data
-    # environment:
-    #   - POSTGRES_PASSWORD=postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
     env_file:
       - plausible.env
     # networks:
