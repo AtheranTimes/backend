@@ -201,7 +201,7 @@ services:
     command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh db init-admin && /entrypoint.sh run"
     depends_on:
       - mail
-      # - geoip
+      - geoip
       - plausible_db
       - plausible_events_db
     env_file:
