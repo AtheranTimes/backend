@@ -210,7 +210,7 @@ services:
     #   - backend
     #   - frontend
     environment:
-      #   GEOLITE2_COUNTRY_DB: "/geoip/GeoLite2-Country.mmdb"
+      GEOLITE2_COUNTRY_DB: "/geoip/GeoLite2-Country.mmdb"
       # DATABASE_URL: "postgres://plausible_db:5432/plausible_dev"
       CLICKHOUSE_DATABASE_URL: "http://plausible_events_db:8123/plausible_events_db"
     volumes:
