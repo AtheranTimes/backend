@@ -73,34 +73,34 @@ services:
       # enables auto updates
       com.centurylinklabs.watchtower.enable: true
 
-  nextcloud:
-    image: nextcloud
-    restart: always
-    ports:
-      - 8080:80
-    links:
-      - db
-    volumes:
-      - nextcloud:/var/www/html
-    environment:
-     # - MYSQL_PASSWORD=
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=root
-      - MYSQL_HOST=db
-     # - NEXTCLOUD_TRUSTED_DOMAINS=
-      - REDIS_HOST=redis
-    env_file:
-      - config.env
-    labels:
-      # enables auto updates
-      com.centurylinklabs.watchtower.enable: true
+#   nextcloud:
+#     image: nextcloud
+#     restart: always
+#     ports:
+#       - 8080:80
+#     links:
+#       - db
+#     volumes:
+#       - nextcloud:/var/www/html
+#     environment:
+#      # - MYSQL_PASSWORD=
+#       - MYSQL_DATABASE=nextcloud
+#       - MYSQL_USER=root
+#       - MYSQL_HOST=db
+#      # - NEXTCLOUD_TRUSTED_DOMAINS=
+#       - REDIS_HOST=redis
+#     env_file:
+#       - config.env
+#     labels:
+#       # enables auto updates
+#       com.centurylinklabs.watchtower.enable: true
   
-  redis:
-    image: redis
-    restart: always
-    labels:
-      # enables auto updates
-      com.centurylinklabs.watchtower.enable: true
+#   redis:
+#     image: redis
+#     restart: always
+#     labels:
+#       # enables auto updates
+#       com.centurylinklabs.watchtower.enable: true
     
 
   # auto updates containers
