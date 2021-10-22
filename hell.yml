@@ -100,7 +100,7 @@ services:
       # enable traefik
       traefik.enable: "true"
 
-      traefik.http.routers.ghost.rule: "Host(`cdm-gov.com`)"
+      traefik.http.routers.ghost.rule: "Host(`cnc.cdm-gov.com`)"
       traefik.http.services.ghost.loadbalancer.server.port: "5643"
       traefik.http.routers.ghost.entrypoints: "websecure"
       traefik.http.routers.ghost.tls.certresolver: "myresolver"
