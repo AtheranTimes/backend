@@ -73,34 +73,43 @@ services:
       # enables auto updates
       com.centurylinklabs.watchtower.enable: true
 
-#   nextcloud:
-#     image: nextcloud
-#     restart: always
-#     ports:
-#       - 8080:80
-#     links:
-#       - db
-#     volumes:
-#       - nextcloud:/var/www/html
-#     environment:
-#      # - MYSQL_PASSWORD=
-#       - MYSQL_DATABASE=nextcloud
-#       - MYSQL_USER=root
-#       - MYSQL_HOST=db
-#      # - NEXTCLOUD_TRUSTED_DOMAINS=
-#       - REDIS_HOST=redis
-#     env_file:
-#       - config.env
-#     labels:
-#       # enables auto updates
-#       com.centurylinklabs.watchtower.enable: true
+  nextcloud:
+    image: nextcloud
+    restart: always
+    ports:
+      - 5643:80
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - nextcloud:/var/www/html
+    environment:
+     # - MYSQL_PASSWORD=
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=root
+      - MYSQL_HOST=db
+     # - NEXTCLOUD_TRUSTED_DOMAINS=
+      - REDIS_HOST=redis
+    env_file:
+      - config.env
+    labels:
+      # enables auto updates
+      com.centurylinklabs.watchtower.enable: true
+      
+      # enable traefik
+      traefik.enable: "true"
+
+      traefik.http.routers.ghost.rule: "Host(`cdm-gov.com`)"
+      traefik.http.services.ghost.loadbalancer.server.port: "5643"
+      traefik.http.routers.ghost.entrypoints: "websecure"
+      traefik.http.routers.ghost.tls.certresolver: "myresolver"
   
-#   redis:
-#     image: redis
-#     restart: always
-#     labels:
-#       # enables auto updates
-#       com.centurylinklabs.watchtower.enable: true
+  redis:
+    image: redis
+    restart: always
+    labels:
+      # enables auto updates
+      com.centurylinklabs.watchtower.enable: true
     
 
   # auto updates containers
