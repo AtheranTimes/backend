@@ -100,10 +100,10 @@ services:
       # enable traefik
       traefik.enable: "true"
 
-      traefik.http.routers.ghost.rule: "Host(`cnc.cdm-gov.com`)"
-      traefik.http.services.ghost.loadbalancer.server.port: "5643"
-      traefik.http.routers.ghost.entrypoints: "websecure"
-      traefik.http.routers.ghost.tls.certresolver: "myresolver"
+      traefik.http.routers.nextcloud.rule: "Host(`cnc.cdm-gov.com`)"
+      traefik.http.services.nextcloud.loadbalancer.server.port: "5643"
+      traefik.http.routers.nextcloud.entrypoints: "websecure"
+      traefik.http.routers.nextcloud.tls.certresolver: "myresolver"
       
 #       caldav redirect thing
       traefik.http.middlewares.nextcloud-caldav.redirectregex.permanent: true
