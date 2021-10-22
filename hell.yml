@@ -58,7 +58,8 @@ services:
 
   # db for cms
   db:
-    image: mariadb:10
+    image: mariadb:10.5
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     # container_name: mariadb
     restart: always
     volumes:
@@ -74,7 +75,7 @@ services:
       com.centurylinklabs.watchtower.enable: true
 
   nextcloud:
-    image: nextcloud
+    image: nextcloud:apache
     restart: always
     ports:
       - 5643:80
@@ -103,6 +104,19 @@ services:
       traefik.http.services.ghost.loadbalancer.server.port: "5643"
       traefik.http.routers.ghost.entrypoints: "websecure"
       traefik.http.routers.ghost.tls.certresolver: "myresolver"
+  
+  nextcloud-cron:
+    image: nextcloud:apache
+    restart: always
+    volumes:
+      - nextcloud:/var/www/html
+    entrypoint: /cron.sh
+    labels:
+      # enables auto updates
+      com.centurylinklabs.watchtower.enable: true
+    depends_on:
+      - db
+      - redis
   
   redis:
     image: redis
