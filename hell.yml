@@ -91,6 +91,10 @@ services:
       - MYSQL_HOST=db
      # - NEXTCLOUD_TRUSTED_DOMAINS=
       - REDIS_HOST=redis
+      # Trusted domain should be the same as your nextcloud domain
+      - NEXTCLOUD_TRUSTED_DOMAINS=cnc.cdm-gov.com
+#       - OVERWRITEHOST=reverse-proxy
+#       - TRUSTED_PROXIES=
     env_file:
       - config.env
     labels:
