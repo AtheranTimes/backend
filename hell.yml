@@ -108,11 +108,11 @@ services:
       traefik.http.routers.nextcloud.entrypoints: "websecure"
       traefik.http.routers.nextcloud.tls.certresolver: "myresolver"
       
-#       caldav redirect thing
-      traefik.http.middlewares.nextcloud-caldav.redirectregex.permanent: true
-      traefik.http.middlewares.nextcloud-caldav.redirectregex.regex: "^https://(.*)/.well-known/(card|cal)dav"
-      traefik.http.middlewares.nextcloud-caldav.redirectregex.replacement: "https://$${1}/remote.php/dav/"
-      traefik.http.routers.nextcloud.middlewares: "nextcloud-caldav@docker"
+# #       caldav redirect thing
+#       traefik.http.middlewares.nextcloud-caldav.redirectregex.permanent: true
+#       traefik.http.middlewares.nextcloud-caldav.redirectregex.regex: "^https://(.*)/.well-known/(card|cal)dav"
+#       traefik.http.middlewares.nextcloud-caldav.redirectregex.replacement: "https://$${1}/remote.php/dav/"
+#       traefik.http.routers.nextcloud.middlewares: "nextcloud-caldav@docker"
   
   nextcloud-cron:
     image: nextcloud:apache
