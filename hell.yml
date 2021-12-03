@@ -158,7 +158,7 @@ services:
   # entry point to every app
   reverse-proxy:
     # The official v2 Traefik docker image
-    image: traefik:v2.4
+    image: traefik:v2.5
     restart: always
     # Enables the web UI and tells Traefik to listen to docker
     command:
