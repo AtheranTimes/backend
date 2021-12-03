@@ -128,7 +128,7 @@ services:
       - redis
   
   redis:
-    image: redis
+    image: redis:bullseye
     restart: always
     labels:
       # enables auto updates
