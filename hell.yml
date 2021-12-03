@@ -93,7 +93,7 @@ services:
       # Trusted domain should be the same as your nextcloud domain
       - NEXTCLOUD_TRUSTED_DOMAINS=cnc.cdm-gov.com
 #       - OVERWRITEHOST=reverse-proxy
-#       - TRUSTED_PROXIES=reverse-proxy
+      - TRUSTED_PROXIES=reverse-proxy
     env_file:
       - config.env
     labels:
