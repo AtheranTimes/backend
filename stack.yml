@@ -137,8 +137,6 @@ services:
     container_name: redis
     image: redis:bullseye
     restart: always
-    healthcheck:
-      test: ["CMD", "redis-cli","ping"]
     labels:
       # enables auto updates
       com.centurylinklabs.watchtower.enable: true
