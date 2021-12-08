@@ -66,8 +66,6 @@ services:
     restart: always
     volumes:
       - mariadb-data:/var/lib/mysql
-    healthcheck:
-     test: ["CMD", "mysqladmin", "ping", "--silent"]
     # environment:
     #   MYSQL_ROOT_PASSWORD: example
     env_file:
