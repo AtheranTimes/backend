@@ -67,7 +67,11 @@ services:
     volumes:
       - mariadb-data:/var/lib/mysql
     healthcheck:
-     test: ["CMD", "mysqladmin", "ping", "--silent"]
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     # environment:
     #   MYSQL_ROOT_PASSWORD: example
     env_file:
@@ -139,6 +143,10 @@ services:
     restart: always
     healthcheck:
       test: ["CMD", "redis-cli","ping"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     labels:
       # enables auto updates
       com.centurylinklabs.watchtower.enable: true
