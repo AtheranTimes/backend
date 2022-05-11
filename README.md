@@ -1,5 +1,5 @@
 # backend
- 
+
 Backend config for The Atheran Times
 
 ## Setup
@@ -13,5 +13,5 @@ Backend config for The Atheran Times
 After completing the setup, simply run the following command to start everything.
 
 ```bash
-docker-compose -f stack.yml up -d
+docker compose up -d
 ```
