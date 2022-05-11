@@ -14,10 +14,10 @@ backend default {
     .host = "ghost:2368";
 }
 
-acl purge {
-    "atherantimes.com";
-    "ghost";
-}
+# acl purge {
+#     "atherantimes.com";
+#     "ghost";
+# }
 
 sub vcl_recv {
     # Do not cache the admin and preview pages
