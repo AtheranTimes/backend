@@ -1,0 +1,144 @@
+version: "3.8"
+
+services:
+  ghost:
+    image: ghost:4-alpine
+    restart: always
+    ports:
+      - 2368:2368
+    environment:
+      # see https://ghost.org/docs/config/#configuration-options
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: root
+      database__connection__password: example
+      database__connection__database: ghost
+      # this url value is just an example, and is likely wrong for your environment!
+      url: http://localhost:8080
+      # contrary to the default mentioned in the linked documentation, this image defaults to NODE_ENV=production (so development mode needs to be explicitly specified if desired)
+      NODE_ENV: development
+    volumes:
+      - ghostdata:/var/lib/ghost/content
+    depends_on:
+      - db
+    networks:
+      - database
+      - frontend
+    labels:
+      # enables auto updates
+      com.centurylinklabs.watchtower.enable: true
+
+      # # enable traefik
+      # traefik.enable: "true"
+
+      # traefik.http.routers.ghost.rule: "Host(`atherantimes.com`)"
+      # traefik.http.services.ghost.loadbalancer.server.port: "2368"
+      # traefik.http.routers.ghost.entrypoints: "websecure"
+      # traefik.http.routers.ghost.tls.certresolver: "myresolver"
+
+  varnish:
+    image: varnish:7.1-alpine
+    environment:
+      VARNISH_SIZE: "50MB"
+    ports:
+      - "8080:80"
+    volumes:
+      - "./varnish/default.vcl:/etc/varnish/default.vcl:ro"
+    # tmpfs: "/var/lib/varnish/varnishd:exec"
+    networks:
+      - frontend
+    labels:
+      # enables auto updates
+      com.centurylinklabs.watchtower.enable: true
+
+      # enable traefik
+      traefik.enable: "true"
+
+      traefik.http.routers.ghost.rule: "Host(`atherantimes.com`)"
+      traefik.http.services.ghost.loadbalancer.server.port: "8080"
+      traefik.http.routers.ghost.entrypoints: "websecure"
+      traefik.http.routers.ghost.tls.certresolver: "myresolver"
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - mysqldata:/var/lib/mysql
+    networks:
+      - database
+
+  # entry point to every app
+  reverse-proxy:
+    container_name: reverse-proxy
+    # The official v2 Traefik docker image
+    image: traefik:v2.6
+    restart: always
+    # Enables the web UI and tells Traefik to listen to docker
+    command:
+      # - "--log.level=DEBUG"
+      # - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
+      - "--entrypoints.websecure.address=:443"
+
+      # https stuff
+
+      # set to http challange
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      # make web entry point for challenge
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      # acme server for testing
+      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      # email
+      - "--certificatesresolvers.myresolver.acme.email=acme@atherantimes.com"
+      # path to config file
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      # The HTTP port
+      - "80:80"
+      # HTTPS
+      - "443:443"
+      # The Web UI (enabled by --api.insecure=true)
+      # - "8080:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./letsencrypt:/letsencrypt
+    networks:
+      - frontend
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+
+  # auto updates containers
+  watchtower:
+    image: containrrr/watchtower
+    # container_name: watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # - /root/.docker/config.json:/config.json
+    environment:
+      # set containers timezone
+      TZ: "America/New_York"
+      WATCHTOWER_CLEANUP: "true"
+      # requires label to auto update containers
+      WATCHTOWER_LABEL_ENABLE: "true"
+      # WATCHTOWER_POLL_INTERVAL: 21600
+      # update at 3 am
+      WATCHTOWER_SCHEDULE: "0 0 3 * * *"
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+
+networks:
+  frontend:
+  database:
+
+volumes:
+  ghostdata:
+  mysqldata:
