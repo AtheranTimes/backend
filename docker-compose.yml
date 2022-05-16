@@ -58,10 +58,11 @@ services:
       # enable traefik
       traefik.enable: "true"
 
-      traefik.http.routers.ghost.rule: "Host(`atherantimes.com`)"
-      traefik.http.services.ghost.loadbalancer.server.port: "8080"
-      traefik.http.routers.ghost.entrypoints: "websecure"
-      traefik.http.routers.ghost.tls.certresolver: "myresolver"
+      traefik.http.routers.varnish.rule: "Host(`atherantimes.com`)"
+      traefik.http.services.varnish.loadbalancer.server.port: "8080"
+      # traefik.http.middlewares.https_redirect.redirectscheme.scheme: https
+      traefik.http.routers.varnish.entrypoints: "websecure"
+      traefik.http.routers.varnish.tls.certresolver: "myresolver"
 
   db:
     image: mysql:8.0
