@@ -4,6 +4,9 @@ vcl 4.1;
 # import vmod_dynamic for better backend name resolution
 import dynamic;
 
+# import proxy
+import proxy;
+
 # set up a dynamic director
 # for more info, see https://github.com/nigoroll/libvmod-dynamic/blob/master/src/vmod_dynamic.vcc
 sub vcl_init {
@@ -20,6 +23,13 @@ backend default {
 # }
 
 sub vcl_recv {
+
+    if (proxy.is_ssl()) {
+        set req.http.X-Forwarded-Proto = "https";
+    } else {
+        set req.http.X-Forwarded-Proto = "http";
+    }
+
     # Do not cache the admin and preview pages
     if (req.url ~ "/(admin|p|ghost)/") {
         return (pass);
