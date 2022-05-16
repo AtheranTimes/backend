@@ -31,38 +31,41 @@ services:
       # enables auto updates
       com.centurylinklabs.watchtower.enable: true
 
-      # # enable traefik
-      # traefik.enable: "true"
-
-      # traefik.http.routers.ghost.rule: "Host(`atherantimes.com`)"
-      # traefik.http.services.ghost.loadbalancer.server.port: "2368"
-      # traefik.http.routers.ghost.entrypoints: "websecure"
-      # traefik.http.routers.ghost.tls.certresolver: "myresolver"
-
-  varnish:
-    container_name: varnish
-    image: varnish:7.1-alpine
-    environment:
-      VARNISH_SIZE: "50MB"
-    ports:
-      - "8080:80"
-    volumes:
-      - "./varnish/default.vcl:/etc/varnish/default.vcl:ro"
-    tmpfs: "/var/lib/varnish/varnishd:exec"
-    networks:
-      - frontend
-    labels:
-      # enables auto updates
-      com.centurylinklabs.watchtower.enable: true
-
       # enable traefik
       traefik.enable: "true"
 
-      traefik.http.routers.varnish.rule: "Host(`atherantimes.com`)"
-      traefik.http.services.varnish.loadbalancer.server.port: "8080"
-      # traefik.http.middlewares.https_redirect.redirectscheme.scheme: https
-      traefik.http.routers.varnish.entrypoints: "websecure"
-      traefik.http.routers.varnish.tls.certresolver: "myresolver"
+      traefik.http.routers.ghost.rule: "Host(`atherantimes.com`)"
+      traefik.http.services.ghost.loadbalancer.server.port: "2368"
+      traefik.http.routers.ghost.entrypoints: "websecure"
+      traefik.http.routers.ghost.tls.certresolver: "myresolver"
+      traefik.docker.network: "backend_frontend"
+
+  # varnish:
+  #   container_name: varnish
+  #   image: varnish:7.1-alpine
+  #   environment:
+  #     VARNISH_SIZE: "50MB"
+  #   ports:
+  #     - "8080:80"
+  #   volumes:
+  #     - "./varnish/default.vcl:/etc/varnish/default.vcl:ro"
+  #   tmpfs: "/var/lib/varnish/varnishd:exec"
+  #   networks:
+  #     - frontend
+  #   labels:
+  #     # enables auto updates
+  #     com.centurylinklabs.watchtower.enable: true
+
+  #     # enable traefik
+  #     traefik.enable: "true"
+
+  #     traefik.http.routers.varnish.rule: "Host(`atherantimes.com`)"
+  #     traefik.http.services.varnish.loadbalancer.server.port: "8080"
+  #     # traefik.http.services.jellyfin.loadBalancer.passHostHeader: "true"
+  #     # traefik.http.middlewares.https_redirect.redirectscheme.scheme: https
+  #     traefik.http.routers.varnish.entrypoints: "websecure"
+  #     traefik.http.routers.varnish.tls.certresolver: "myresolver"
+  #     traefik.docker.network: frontend
 
   db:
     image: mysql:8.0
