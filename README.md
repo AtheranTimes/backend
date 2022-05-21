@@ -9,6 +9,11 @@ Backend config for The Atheran Times
 3. clone the repo onto the server
 4. Create a copy of `example.env` and rename it to `.env`
 5. Replace `example` in `.env` with the password you want to set for the db
+6. To easly access the cscli, run the command:
+
+```bash
+alias cscli="docker exec -t crowdsec cscli"
+```
 
 ## Run
 
