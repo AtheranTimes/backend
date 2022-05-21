@@ -123,6 +123,7 @@ services:
       # logs
       - "--log.filePath=/var/log/traefik/traefik.log"
       - "--log.format=json"
+      - "--log.level=INFO"
       # - "--log.level=DEBUG"
 
       # api
