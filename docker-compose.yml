@@ -109,6 +109,9 @@ services:
     restart: always
     security_opt:
       - no-new-privileges=true
+    labels:
+      # enables auto updates
+      com.centurylinklabs.watchtower.enable: true
 
   # entry point to every app
   traefik:
