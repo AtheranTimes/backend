@@ -123,8 +123,8 @@ services:
       # logs
       - "--log.filePath=/var/log/traefik/traefik.log"
       - "--log.format=json"
-      - "--log.level=INFO"
-      # - "--log.level=DEBUG"
+      # need debug for crowdsec
+      - "--log.level=DEBUG"
 
       # api
       # - "--api.insecure=true"
