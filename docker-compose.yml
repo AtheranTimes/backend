@@ -91,6 +91,26 @@ services:
     networks:
       - database
 
+  crowdsec:
+    image: crowdsecurity/crowdsec
+    container_name: crowdsec
+    environment:
+      GID: "1000"
+      UID: "1000"
+      COLLECTIONS: "crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors"
+      CUSTOM_HOSTNAME: "Atheran Times"
+    volumes:
+      - ./crowdsec:/etc/crowdsec
+      - crowdsecdb:/var/lib/crowdsec/data/
+      - /var/log/traefik:/var/log/traefik/:ro
+      # - /var/lib/docker/volumes/ssh/_data/logs/openssh/:/var/log/opensshd/:ro
+      # - /var/lib/docker/volumes/traefik/_data/logs/:/var/log/traefik/:ro
+    networks:
+      - crowdsec
+    restart: always
+    security_opt:
+      - no-new-privileges=true
+
   # entry point to every app
   traefik:
     container_name: traefik
@@ -173,7 +193,9 @@ services:
 networks:
   frontend:
   database:
+  crowdsec:
 
 volumes:
   ghostdata:
   mysqldata:
+  crowdsecdb:
