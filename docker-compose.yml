@@ -99,11 +99,10 @@ services:
       COLLECTIONS: "crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors"
       CUSTOM_HOSTNAME: "Atheran Times"
     volumes:
-      - ./crowdsec:/etc/crowdsec
+      - crowdsecconfig:/etc/crowdsec
       - crowdsecdb:/var/lib/crowdsec/data/
       - /var/log/traefik:/var/log/traefik/:ro
-      # - /var/lib/docker/volumes/ssh/_data/logs/openssh/:/var/log/opensshd/:ro
-      # - /var/lib/docker/volumes/traefik/_data/logs/:/var/log/traefik/:ro
+      - /var/log/anaconda:/var/log/anaconda/:ro
     networks:
       - crowdsec
     restart: always
@@ -201,3 +200,4 @@ volumes:
   ghostdata:
   mysqldata:
   crowdsecdb:
+  crowdsecconfig:
