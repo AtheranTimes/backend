@@ -57,7 +57,7 @@ services:
     environment:
       VARNISH_SIZE: "50MB"
     ports:
-      - "8080:80"
+      - "8081:80"
     volumes:
       - "./varnish/default.vcl:/etc/varnish/default.vcl:ro"
     tmpfs: "/var/lib/varnish/varnishd:exec"
@@ -71,7 +71,7 @@ services:
       traefik.enable: "true"
 
       traefik.http.routers.varnish.rule: "Host(`test.atherantimes.com`)"
-      traefik.http.services.varnish.loadbalancer.server.port: "8080"
+      traefik.http.services.varnish.loadbalancer.server.port: "8081"
 
       traefik.docker.network: "backend_frontend"
 
@@ -129,8 +129,17 @@ services:
       # pilot token for web dashboard
       - --pilot.token=${TRAEFIK_PILOT_TOKEN}
 
+      # hub stuff
+      - --experimental.hub=true
+      - --hub.tls.insecure=true
+
+      # metrics
+      - --metrics.prometheus=true
+      - --metrics.prometheus.addEntryPointsLabels=true
+      - --metrics.prometheus.addrouterslabels=true
+
       # api
-      # - "--api.insecure=true"
+      - "--api.insecure=true"
 
       # provider
       - "--providers.docker=true"
@@ -163,7 +172,7 @@ services:
       # HTTPS
       - "443:443"
       # The Web UI (enabled by --api.insecure=true)
-      # - "8080:8080"
+      - "8080:8080"
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
@@ -174,6 +183,22 @@ services:
       - frontend
     labels:
       com.centurylinklabs.watchtower.enable: true
+
+  hub-agent:
+    container_name: hub-agent
+    image: ghcr.io/traefik/hub-agent-traefik:v0.7.0
+    restart: always
+    command:
+      - run
+      - --auth-server.advertise-url=http://hub-agent
+      - --hub.token=${TRAEFIK_HUB_TOKEN}
+      - --traefik.host=traefik
+      - --traefik.tls.insecure=true
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - frontend
 
   # auto updates containers
   watchtower:
