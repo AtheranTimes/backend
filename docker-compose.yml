@@ -51,33 +51,6 @@ services:
       traefik.http.routers.ghost.entrypoints: "websecure"
       traefik.http.routers.ghost.tls.certresolver: "myresolver"
 
-  varnish:
-    container_name: varnish
-    image: varnish:7.1-alpine
-    environment:
-      VARNISH_SIZE: "50MB"
-    ports:
-      - "8081:80"
-    volumes:
-      - "./varnish/default.vcl:/etc/varnish/default.vcl:ro"
-    tmpfs: "/var/lib/varnish/varnishd:exec"
-    networks:
-      - frontend
-    labels:
-      # enables auto updates
-      com.centurylinklabs.watchtower.enable: true
-
-      # enable traefik
-      traefik.enable: "true"
-
-      traefik.http.routers.varnish.rule: "Host(`test.atherantimes.com`)"
-      traefik.http.services.varnish.loadbalancer.server.port: "8081"
-
-      traefik.docker.network: "backend_frontend"
-
-      traefik.http.routers.varnish.entrypoints: "websecure"
-      traefik.http.routers.varnish.tls.certresolver: "myresolver"
-
   db:
     image: mysql:8.0
     restart: always
