@@ -126,6 +126,9 @@ services:
       # need debug for crowdsec
       - "--log.level=DEBUG"
 
+      # pilot token for web dashboard
+      - --pilot.token=${TRAEFIK_PILOT_TOKEN}
+
       # api
       # - "--api.insecure=true"
 
