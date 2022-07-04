@@ -43,11 +43,22 @@ services:
       # enable traefik
       traefik.enable: "true"
 
+      # set host
       traefik.http.routers.ghost.rule: "Host(`atherantimes.com`)"
+      # set port
       traefik.http.services.ghost.loadbalancer.server.port: "2368"
 
+      # compression
+      traefik.http.middlewares.test-compress.compress: true
+
+      # rate limiting
+      traefik.http.middlewares.test-ratelimit.ratelimit.average: 100
+      traefik.http.middlewares.test-ratelimit.ratelimit.burst: 50
+
+      # network traefik uses to access service
       traefik.docker.network: "backend_frontend"
 
+      # https stuff
       traefik.http.routers.ghost.entrypoints: "websecure"
       traefik.http.routers.ghost.tls.certresolver: "myresolver"
 
