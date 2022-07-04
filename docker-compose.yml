@@ -74,6 +74,47 @@ services:
     networks:
       - database
 
+  umami:
+    image: ghcr.io/mikecao/umami:mysql-v1.33
+    # ports:
+    #   - "3000:3000"
+    environment:
+      # DATABASE_URL: mysql://username:mypassword@localhost:3306/mydb
+      DATABASE_TYPE: mysql
+      # HASH_SALT: replace-me-with-a-random-string
+      HOSTNAME: test.atherantimes.com
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - database
+      - frontend
+    labels:
+      # enables auto updates
+      com.centurylinklabs.watchtower.enable: true
+
+      # enable traefik
+      traefik.enable: "true"
+
+      # set host
+      traefik.http.routers.ghost.rule: "Host(`test.atherantimes.com`)"
+      # set port
+      traefik.http.services.ghost.loadbalancer.server.port: "3000"
+
+      # compression
+      traefik.http.middlewares.test-compress.compress: true
+
+      # # rate limiting
+      # traefik.http.middlewares.test-ratelimit.ratelimit.average: 100
+      # traefik.http.middlewares.test-ratelimit.ratelimit.burst: 50
+
+      # network traefik uses to access service
+      traefik.docker.network: "backend_frontend"
+
+      # https stuff
+      traefik.http.routers.ghost.entrypoints: "websecure"
+      traefik.http.routers.ghost.tls.certresolver: "myresolver"
+
   crowdsec:
     image: crowdsecurity/crowdsec
     container_name: crowdsec
