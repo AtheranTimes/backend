@@ -75,7 +75,7 @@ services:
       - database
 
   umami:
-    image: ghcr.io/mikecao/umami:mysql-v1.33
+    image: ghcr.io/mikecao/umami:mysql-latest
     # ports:
     #   - "3000:3000"
     environment:
@@ -83,6 +83,8 @@ services:
       DATABASE_TYPE: mysql
       # HASH_SALT: replace-me-with-a-random-string
       HOSTNAME: test.atherantimes.com
+    env_file:
+      - .env
     depends_on:
       - db
     restart: always
@@ -97,9 +99,9 @@ services:
       traefik.enable: "true"
 
       # set host
-      traefik.http.routers.ghost.rule: "Host(`test.atherantimes.com`)"
+      traefik.http.routers.umami.rule: "Host(`test.atherantimes.com`)"
       # set port
-      traefik.http.services.ghost.loadbalancer.server.port: "3000"
+      traefik.http.services.umami.loadbalancer.server.port: "3000"
 
       # compression
       traefik.http.middlewares.test-compress.compress: true
@@ -112,8 +114,8 @@ services:
       traefik.docker.network: "backend_frontend"
 
       # https stuff
-      traefik.http.routers.ghost.entrypoints: "websecure"
-      traefik.http.routers.ghost.tls.certresolver: "myresolver"
+      traefik.http.routers.umami.entrypoints: "websecure"
+      traefik.http.routers.umami.tls.certresolver: "myresolver"
 
   crowdsec:
     image: crowdsecurity/crowdsec
