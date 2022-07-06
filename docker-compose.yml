@@ -82,7 +82,7 @@ services:
       # DATABASE_URL: mysql://username:mypassword@localhost:3306/mydb
       DATABASE_TYPE: mysql
       # HASH_SALT: replace-me-with-a-random-string
-      HOSTNAME: test.atherantimes.com
+      HOSTNAME: umami.atherantimes.com
     env_file:
       - .env
     depends_on:
@@ -99,7 +99,7 @@ services:
       traefik.enable: "true"
 
       # set host
-      traefik.http.routers.umami.rule: "Host(`test.atherantimes.com`)"
+      traefik.http.routers.umami.rule: "Host(`umami.atherantimes.com`)"
       # set port
       traefik.http.services.umami.loadbalancer.server.port: "3000"
 
