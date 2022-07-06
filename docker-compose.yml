@@ -117,6 +117,40 @@ services:
       traefik.http.routers.umami.entrypoints: "websecure"
       traefik.http.routers.umami.tls.certresolver: "myresolver"
 
+  redirect:
+    image: ghcr.io/huskydog9988/simple-redirect:1.0
+    container_name: redirect
+    restart: always
+    environment:
+      REDIRECT_To: "https://atherantimes.com"
+    networks:
+      - frontend
+    labels:
+      # enables auto updates
+      com.centurylinklabs.watchtower.enable: true
+
+      # enable traefik
+      traefik.enable: "true"
+
+      # set host
+      traefik.http.routers.redirect.rule: "Host(`www.atherantimes.com`)"
+      # set port
+      traefik.http.services.redirect.loadbalancer.server.port: "3000"
+
+      # compression
+      traefik.http.middlewares.test-compress.compress: true
+
+      # rate limiting
+      traefik.http.middlewares.test-ratelimit.ratelimit.average: 100
+      traefik.http.middlewares.test-ratelimit.ratelimit.burst: 50
+
+      # network traefik uses to access service
+      traefik.docker.network: "backend_frontend"
+
+      # https stuff
+      traefik.http.routers.redirect.entrypoints: "websecure"
+      traefik.http.routers.redirect.tls.certresolver: "myresolver"
+
   crowdsec:
     image: crowdsecurity/crowdsec
     container_name: crowdsec
