@@ -177,7 +177,7 @@ services:
   traefik:
     container_name: traefik
     # The official v2 Traefik docker image
-    image: traefik:v2.7
+    image: traefik:v2.9
     restart: always
     # Enables the web UI and tells Traefik to listen to docker
     command:
@@ -247,7 +247,7 @@ services:
 
   hub-agent:
     container_name: hub-agent
-    image: ghcr.io/traefik/hub-agent-traefik:v0.7.0
+    image: ghcr.io/traefik/hub-agent-traefik:v1.0.0
     restart: always
     command:
       - run
