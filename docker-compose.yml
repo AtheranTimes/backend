@@ -75,7 +75,7 @@ services:
       - database
 
   umami:
-    image: ghcr.io/mikecao/umami:mysql-latest
+    image: ghcr.io/umami-software/umami:mysql-latest
     # ports:
     #   - "3000:3000"
     environment:
