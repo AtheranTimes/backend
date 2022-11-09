@@ -151,6 +151,45 @@ services:
       traefik.http.routers.redirect.entrypoints: "websecure"
       traefik.http.routers.redirect.tls.certresolver: "myresolver"
 
+  filebrowser:
+    image: "filebrowser/filebrowser:s6"
+    environment:
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - "8085:80"
+    volumes:
+      - "filedata:/srv"
+      - "./filebrowser/filebrowser.db:/database/filebrowser.db"
+      - "./filebrowser/settings.json:/config/settings.json"
+    networks:
+      - frontend
+    labels:
+      # enables auto updates
+      com.centurylinklabs.watchtower.enable: true
+
+      # enable traefik
+      traefik.enable: "true"
+
+      # set host
+      traefik.http.routers.umami.rule: "Host(`file.atherantimes.com`)"
+      # set port
+      traefik.http.services.umami.loadbalancer.server.port: "3000"
+
+      # compression
+      traefik.http.middlewares.test-compress.compress: true
+
+      # # rate limiting
+      # traefik.http.middlewares.test-ratelimit.ratelimit.average: 100
+      # traefik.http.middlewares.test-ratelimit.ratelimit.burst: 50
+
+      # network traefik uses to access service
+      traefik.docker.network: "backend_frontend"
+
+      # https stuff
+      traefik.http.routers.umami.entrypoints: "websecure"
+      traefik.http.routers.umami.tls.certresolver: "myresolver"
+
   # entry point to every app
   traefik:
     container_name: traefik
@@ -266,3 +305,4 @@ networks:
 volumes:
   ghostdata:
   mysqldata:
+  filedata:
