@@ -170,9 +170,9 @@ services:
       traefik.enable: "true"
 
       # set host
-      traefik.http.routers.umami.rule: "Host(`file.atherantimes.com`)"
+      traefik.http.routers.filebrowser.rule: "Host(`file.atherantimes.com`)"
       # set port
-      traefik.http.services.umami.loadbalancer.server.port: "80"
+      traefik.http.services.filebrowser.loadbalancer.server.port: "80"
 
       # compression
       traefik.http.middlewares.test-compress.compress: true
@@ -185,8 +185,8 @@ services:
       traefik.docker.network: "backend_frontend"
 
       # https stuff
-      traefik.http.routers.umami.entrypoints: "websecure"
-      traefik.http.routers.umami.tls.certresolver: "myresolver"
+      traefik.http.routers.filebrowser.entrypoints: "websecure"
+      traefik.http.routers.filebrowser.tls.certresolver: "myresolver"
 
   # entry point to every app
   traefik:
