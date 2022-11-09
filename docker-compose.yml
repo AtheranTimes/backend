@@ -151,28 +151,6 @@ services:
       traefik.http.routers.redirect.entrypoints: "websecure"
       traefik.http.routers.redirect.tls.certresolver: "myresolver"
 
-  crowdsec:
-    image: crowdsecurity/crowdsec
-    container_name: crowdsec
-    environment:
-      GID: "1000"
-      UID: "1000"
-      COLLECTIONS: "crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors"
-      CUSTOM_HOSTNAME: "Atheran Times"
-    volumes:
-      - crowdsecconfig:/etc/crowdsec
-      - crowdsecdb:/var/lib/crowdsec/data/
-      - /var/log/traefik:/var/log/traefik/:ro
-      - /var/log/anaconda:/var/log/anaconda/:ro
-    networks:
-      - crowdsec
-    restart: always
-    security_opt:
-      - no-new-privileges=true
-    labels:
-      # enables auto updates
-      com.centurylinklabs.watchtower.enable: true
-
   # entry point to every app
   traefik:
     container_name: traefik
@@ -284,10 +262,7 @@ services:
 networks:
   frontend:
   database:
-  crowdsec:
 
 volumes:
   ghostdata:
   mysqldata:
-  crowdsecdb:
-  crowdsecconfig:
