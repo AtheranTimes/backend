@@ -170,7 +170,7 @@ services:
       traefik.enable: "true"
 
       # set host
-      traefik.http.routers.filebrowser.rule: "Host(`file.atherantimes.com`)"
+      traefik.http.routers.filebrowser.rule: "Host(`file.cdm-gov.com`)"
       # set port
       traefik.http.services.filebrowser.loadbalancer.server.port: "80"
 
